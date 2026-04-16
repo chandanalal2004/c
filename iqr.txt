@@ -1,0 +1,22 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+data = {
+    "Age":[21,22,23,24,25,90],
+    "Salary":[30000,32000,31000,30500,33000,200000]
+}
+df = pd.DataFrame(data)
+salary = df["Salary"]
+# IQR Calculation
+Q1 = salary.quantile(0.25)
+Q3 = salary.quantile(0.75)
+IQR = Q3 - Q1
+print(IQR)
+lower = Q1 - 1.5 * IQR
+upper = Q3 + 1.5 * IQR
+outliers = salary[(salary < lower) | (salary > upper)]
+print("Outliers in Salary:", outliers)
+# Boxplot
+plt.boxplot(salary)
+plt.title("Boxplot for Salary Outlier Detection")
+plt.ylabel("Salary")
+plt.show()
