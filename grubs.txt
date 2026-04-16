@@ -1,0 +1,8 @@
+import numpy as np
+from outliers import smirnov_grubbs as grubbs
+data = np.array([10,12,12,13,12,14,15,16,18,25,55,65,110])
+cleaned_data = grubbs.test(data, alpha=0.05)
+print("Data after removing outliers:", cleaned_data)
+outlier_value = grubbs.max_test_outliers(data, alpha=0.05)
+print("Detected maximum outlier:", outlier_value)
+
