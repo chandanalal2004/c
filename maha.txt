@@ -1,0 +1,16 @@
+import numpy as np
+import pandas as pd
+from scipy.spatial.distance import mahalanobis
+from scipy.stats import chi2
+df = pd.DataFrame({
+    "Age":[21,22,23,24,25,90],
+    "Salary":[30000,32000,31000,30500,33000,200000]
+})
+mean = df.mean()
+cov = np.cov(df.values, rowvar=False)
+inv_cov = np.linalg.inv(cov)
+df["MD"] = df.apply(lambda row: mahalanobis(row, mean, inv_cov), axis=1)
+threshold = np.sqrt(chi2.ppf(0.975, df=2))
+outliers = df[df["MD"] > threshold]
+print(df)
+print("\nOutliers:\n", outliers)
