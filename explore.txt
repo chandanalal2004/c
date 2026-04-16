@@ -35,3 +35,4 @@ pivot = pd.pivot_table(df,
                        columns="Product Category",
                        aggfunc="sum")
 print(pivot)
+df["Domain"] = df["Email"].str.split("@").str[1]
