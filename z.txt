@@ -1,0 +1,7 @@
+import numpy as np
+from scipy.stats import zscore
+data = [10,12,12,13,12,14,15,16,18,25,55,65,110]
+z = zscore(data)
+threshold = 2
+outliers = np.array(data)[z > threshold]
+print("Outliers:", outliers)
