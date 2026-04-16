@@ -1,0 +1,37 @@
+import numpy as np
+import pandas as pd
+df = pd.read_csv("retail_sales_dataset.csv")
+print(df.isnull())
+print(df.isnull().sum())
+
+df['Age']=df['Age'].fillna(df['Age'].median())
+df['Quantity']=df['Quantity'].fillna(df['Quantity'].median())
+df['Price per Unit']=df['Price per Unit'].fillna(df['Price per Unit'].median())
+df['Gender']=df['Gender'].fillna(df['Gender'].mode()[0])
+print(df.head())
+print(df.isnull().sum())
+df.columns=df.columns.str.strip()
+df.columns=df.columns.str.lower()
+print(df.columns)
+df['new column'] = df['product category'].str[:3]
+print(df.head())
+df['total sales'] = df['quantity']*df['price per unit']
+print(df.head())
+print(df.groupby('product category')[['total sales']].sum())
+df = pd.DataFrame({
+    "Region": ["North","South","North","South"],
+    "Product Category": ["A","A","B","B"],
+    "Sales": [1000,1500,2000,2500],
+    "Quantity": [10,15,20,25]
+})
+grouped = df.groupby(["Region","Product Category"]).sum()
+print(grouped)
+df['total sales'] = df['Sales']*df['Quantity']
+df['Sales'].sum()
+print(df.groupby(['Quantity']).sum())
+pivot = pd.pivot_table(df,
+                       values="Sales",
+                       index="Region",
+                       columns="Product Category",
+                       aggfunc="sum")
+print(pivot)
