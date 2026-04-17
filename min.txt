@@ -1,0 +1,5 @@
+Min-Max normalization
+scaler = MinMaxScaler()
+df[["Price","Quantity"]] = scaler.fit_transform(df[["Price","Quantity"]])
+Revenue = Price * Quantity * (1 - Discount/100)
+df["Revenue"] = df["Price"] * df["Quantity"] * (1 - df["Discount"]/100)
